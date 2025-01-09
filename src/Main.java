@@ -1,9 +1,9 @@
 /**
  * Databases HW 1
  * 
- * TODO 1: Read data and display on screen ordered by product
+ *  1: Read data and display on screen ordered by product
  * 
- * TODO 2: Design methods to query CSV file tables:
+ * 2: Design methods to query CSV file tables:
  *  2.1: Count and display the number of Amandas
  *  2.2: Calculate and display the average transaction amount
  *  TODO 2.3: Create a new CSV that changes all intances of "United States" to USA. Print the amount of changes made.
@@ -22,15 +22,15 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException{
         File file1 = new File("data\\cs340_hw01_salesData01.csv");
         sortByProduct(file1);
-        //System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
-        //System.out.println("The average transaction amount is " + averageAmount(file1));
+        System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
+        System.out.println("The average transaction amount is " + averageAmount(file1));
     }
 
     public static void sortByProduct(File file) throws FileNotFoundException, IOException {
         int column = 2;
-        int products = 2;
+        int products = 3;
 
-        FileWriter writer = new FileWriter("salesDataByProductNum.csv");
+        FileWriter writer = new FileWriter("data\\salesDataByProductNum.csv");
         Scanner headerScanner = new Scanner(file);
         //headerScanner.useDelimiter(",");
         writer.append(headerScanner.nextLine());
@@ -39,16 +39,17 @@ public class Main {
         for (int i = 0; i <= products; i++) {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter(",");
+            scanner.nextLine();
             while(scanner.hasNextLine())
             {
                 String line = scanner.nextLine();
                 String[] values = line.split(",");
                 
                 String productString = values[column-1];
-                int productNum = productString.charAt(productString.length()-1);
-                System.out.println("ProductNum:" + productNum);
+                String productNumChar = String.valueOf(productString.charAt(7));
+                int productNum = Integer.parseInt(productNumChar);
                 if (productNum == i){
-                    writer.append(line);
+                    writer.append("\n"+line);
                 }
             }
             scanner.close();
@@ -56,7 +57,7 @@ public class Main {
         writer.close();
         
 
-        Scanner newFileScanner = new Scanner(new File("salesDataByProductNum.csv"));
+        Scanner newFileScanner = new Scanner(new File("data\\salesDataByProductNum.csv"));
         newFileScanner.useDelimiter(",");
         
         while(newFileScanner.hasNextLine()){
