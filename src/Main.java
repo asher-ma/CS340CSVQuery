@@ -1,14 +1,13 @@
 /**
  * Databases HW 1
+ * Asher Mangel
  * 
  *  1: Read data and display on screen ordered by product
  * 
  * 2: Design methods to query CSV file tables:
  *  2.1: Count and display the number of Amandas
  *  2.2: Calculate and display the average transaction amount
- *  TODO 2.3: Create a new CSV that changes all intances of "United States" to USA. Print the amount of changes made.
- * 
- * TODO 3: Attempt to query second CSV
+ *  2.3: Create a new CSV that changes all intances of "United States" to USA. Print the amount of changes made.
  */
 
 
@@ -21,9 +20,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException{
         File file1 = new File("data\\cs340_hw01_salesData01.csv");
-        //sortByProduct(file1);
-        //System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
-        //System.out.println("The average transaction amount is " + averageAmount(file1));
+        sortByProduct(file1);
+        System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
+        System.out.println("The average transaction amount is " + averageAmount(file1));
         convertText(file1, "United States", "USA");
     }
 
