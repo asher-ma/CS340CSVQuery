@@ -111,10 +111,13 @@ public class Main {
         Scanner scanner = new Scanner(file);
         scanner.useDelimiter(",");
         
+        int changes = 0;
+        
         while (scanner.hasNext()) {
             String next = scanner.next();
             if(next.equals(initial)) {
                 writer.append(edit+",");
+                changes ++;
             } else {
                 writer.append(next+",");
             }
@@ -122,12 +125,6 @@ public class Main {
         scanner.close();
         writer.close();
         
-        Scanner newFileScanner = new Scanner(new File("data\\edited.csv"));
-        newFileScanner.useDelimiter(",");
-        
-        while(newFileScanner.hasNextLine()){
-            System.out.println(newFileScanner.nextLine()+"\t");
-        }
-        newFileScanner.close();
+        System.out.println("Changes made: " + changes);
     }
 }
