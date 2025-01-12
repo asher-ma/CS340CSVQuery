@@ -21,9 +21,10 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException{
         File file1 = new File("data\\cs340_hw01_salesData01.csv");
-        sortByProduct(file1);
-        System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
-        System.out.println("The average transaction amount is " + averageAmount(file1));
+        //sortByProduct(file1);
+        //System.out.println("There are " + countNames(file1, "amanda") + " customers named Amanda");
+        //System.out.println("The average transaction amount is " + averageAmount(file1));
+        convertText(file1, "United States", "USA");
     }
 
     public static void sortByProduct(File file) throws FileNotFoundException, IOException {
@@ -32,7 +33,6 @@ public class Main {
 
         FileWriter writer = new FileWriter("data\\salesDataByProductNum.csv");
         Scanner headerScanner = new Scanner(file);
-        //headerScanner.useDelimiter(",");
         writer.append(headerScanner.nextLine());
         headerScanner.close();
         
@@ -104,5 +104,30 @@ public class Main {
         }
         scanner.close();
         return totalSpent/transactions;
+    }
+    
+    public static void convertText(File file, String initial, String edit) throws FileNotFoundException, IOException {
+        FileWriter writer = new FileWriter("data\\edited.csv");
+        Scanner scanner = new Scanner(file);
+        scanner.useDelimiter(",");
+        
+        while (scanner.hasNext()) {
+            String next = scanner.next();
+            if(next.equals(initial)) {
+                writer.append(edit+",");
+            } else {
+                writer.append(next+",");
+            }
+        }
+        scanner.close();
+        writer.close();
+        
+        Scanner newFileScanner = new Scanner(new File("data\\edited.csv"));
+        newFileScanner.useDelimiter(",");
+        
+        while(newFileScanner.hasNextLine()){
+            System.out.println(newFileScanner.nextLine()+"\t");
+        }
+        newFileScanner.close();
     }
 }
